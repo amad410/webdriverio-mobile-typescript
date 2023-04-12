@@ -239,7 +239,7 @@ When Appium Destkop is started make sure the _Automatic Server_-tab is enabled. 
 
 ```js
 {
-  "app": "/Users/wswebcreation/git/appium-boilerplate/apps/Android-NativeDemoApp-0.2.0.apk",
+  "app": "/Users/wswebcreation/git/appium-boilerplate/apps/android/Android-NativeDemoApp-0.2.0.apk",
   "platformName": "Android",
   "deviceName": "Pixel XL",
   "platformVersion": "7.1.1",
@@ -254,16 +254,12 @@ And the following settings for iOS (also check [here](../config/wdio.ios.app.con
 ```js
 {
   "platformName": "iOS",
-  "appium:app": "/Users/wswebcreation/git/appium-boilerplate/apps/iOS-NativeDemoApp-0.2.0.zip",
+  "appium:app": "/Users/wswebcreation/git/appium-boilerplate/apps/ios/iOS-NativeDemoApp-0.2.0.zip",
   "appium:deviceName": "iPhone 6",
   "appium:platformVersion": "11.1",
   "appium:noReset": true
 }
 ```
-# Build and Test
-1. From command line navigate to source project folder and perform 
-TBD
-
 ## Run specific spec interactively
 
 npm run ios.app -- --spec=tests/specs/app.login.spec.ts
@@ -286,7 +282,7 @@ _npm run wdio --suite <suiteName>_
 
 ## Run tests using CLI using a different environment
 
-TBD
+-----TBD
 Cross ENV is the package library that is being used to run test across multiple environments [here](https://www.npmjs.com/package/cross-env). By default the following environment configurations are included:
 1. LOCAL
 2. DEV
@@ -311,7 +307,7 @@ The most popular types are:
 3. [Mochawesome](https://webdriver.io/docs/wdio-mochawesome-reporter)
 
 ## Generate Report
-TBD
+-----TBD
 By default, this framework is set to use _spec_ and _allure_. To generate the allure report:
 
 _npm run report_
@@ -326,24 +322,6 @@ _npm run report_
 
 ## Reporting bugs in WebDriverIO
 Alternatively, you can report bugs that you encounter in WebDriverIO [here](https://github.com/webdriverio/webdriverio/issues)
-
-# Appium Boilerplate
-
-**NOTE:** This boilerplate is for Webdriver V7 where the tests are written with `async`/`await` and TypeScript. If you need a boilerplate for sync mode then check the following:
-
-- V7 (TypeScript) please click [here](https://github.com/webdriverio/appium-boilerplate/tree/sync-mode)
-- V6 (JavaScript) please click [here](https://github.com/webdriverio/appium-boilerplate/tree/v6)
-- V5 (JavaScript) please click [here](https://github.com/webdriverio/appium-boilerplate/tree/v5)
-- V4 (JavaScript) please click [here](https://github.com/webdriverio/appium-boilerplate/tree/v4)
-
-Boilerplate project to run Appium tests together with WebdriverIO for:
-
-- iOS/Android Native Apps
-- iOS/Android Hybrid Apps
-- Android Chrome and iOS Safari browser ([check here](./README.md#automating-chrome-or-safari))
-
-> **Note:**
-> This boilerplate only handles local execution on 1 em/simulator at a time, not parallel execution. For more info about that Google on setting up a grid with Appium.
 
 ## Configuration files
 
@@ -423,69 +401,11 @@ You can run the single test with the following commands
 
 ```sh
 # For Android local execution
-npm run android.app -- --spec=tests/specs/app.swipe.spec.ts
+npm run android.app -- --spec=tests/specs/android/app.login.spec.ts
 
 # For iOS local execution
-npm run ios.app -- --spec=tests/specs/app.swipe.spec.ts
+npm run ios.app -- --spec=tests/specs/ios/app.login.spec.ts
 ```
-
-### WebViews
-
-The app has a WebView that will automatically load the WebdriverIO documentation page. This boilerplate holds 2 test files:
-
-1. [Interact within a WebView with CSS Selectors](./tests/specs/app.webview.spec.ts).
-   *You will also find a test that interacts between a WebView and the Native part of the app.*
-1. [Automate a WebView based on Native Selectors](./tests/specs/app.webview.xpath.spec.ts). This test will compare the execution time of:
-
-    - automating the WebView by **NOT** switching to the WebView (by using native selectors).
-    - automating the WebView by **SWITCHING** to the WebView.
-
-    Check the console for load time differences. An example time could look like this
-
-    ```log
-    // Android
-    [0-0] RUNNING in Android - /tests/specs/app.webview.xpath.spec.ts
-    [0-0] Test time for using XPATH It took 0.799 seconds.
-    [0-0] Test time for switching to the WebView It took 0.238 seconds.
-    [0-0] PASSED in Android - /tests/specs/app.webview.xpath.spec.ts
-
-    // iOS
-    [0-0] RUNNING in iOS - /tests/specs/app.webview.xpath.spec.ts
-    [0-0] Test time for using XPATH It took 3.125 seconds.
-    [0-0] Test time for switching to the WebView It took 1.443 seconds.
-    [0-0] PASSED in iOS - /tests/specs/app.webview.xpath.spec.ts
-    ```
-
-You will also find a [WebView](./tests/helpers/WebView.ts)-helper with hopefully useful methods that can help you automate a Hybrid App.
-Keep in the back of your mind that for *simplicity* of the Demo app only one WebView is used. This is also used in the WebView-helper.
-
-More information about **Automating Hybrid Applications with Appium** and more complex WebViews can be found in
-[this webinar](https://youtu.be/_mPCRxplBfo) recording.
-
-You can run the single test with the following commands
-
-```sh
-# For Android local execution
-npm run android.app -- --spec=tests/specs/app.webview.spec.ts
-npm run android.app -- --spec=tests/specs/app.webview.xpath.spec.ts
-
-# For iOS local execution
-npm run ios.app -- --spec=tests/specs/app.webview.spec.ts
-npm run ios.app -- --spec=tests/specs/app.webview.xpath.spec.ts
-```
-
-## Automating Chrome or Safari
-
-Mobile web automation is almost the same as writing tests for desktop browsers. The only difference can be found in the configuration that
-needs to be used. Click [here](config/wdio.ios.browser.conf.ts) to find the config for iOS Safari and
-[here](config/wdio.android.browser.conf.ts) for Android Chrome.
-For Android be sure that the latest version of Chrome is installed, see also
-[here](./docs/FAQ.md#i-get-the-error-no-chromedriver-found-that-can-automate-chrome-). Our
-[`wdio.shared.local.appium.conf.ts`](./config/wdio.shared.local.appium.conf.ts) uses the `relaxedSecurity: true` argument from Appium which
-will allow Appium to automatically download the latest ChromeDriver.
-
-For this boilerplate the testcases from the [jasmine-boilerplate](https://github.com/webdriverio/jasmine-boilerplate), created by
-[Christian Bromann](https://github.com/christian-bromann), are used.
 
 ## Cloud vendors
 
@@ -608,6 +528,3 @@ You can run the single test with the following commands
 
 See [Tips and Tricks](./TIPS_TRICKS.md)
 
-# Contribute
-If you would like to contribute to the source, please reach out to Director of Quality Engineering, Antwan Maddox,
-or the Automation Team within the Quality Guild.
